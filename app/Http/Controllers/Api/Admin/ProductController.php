@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -37,6 +38,8 @@ class ProductController extends Controller
             'image' => 'nullable|url',
         ]);
 
+        $validated['slug'] = Str::slug($validated['name']);
+
         $product = Product::create($validated);
         $product->load('category');
 
@@ -66,6 +69,8 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'image' => 'nullable|url',
         ]);
+
+        $validated['slug'] = Str::slug($validated['name']);
 
         $product->update($validated);
         $product->load('category');

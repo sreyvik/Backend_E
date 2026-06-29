@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -25,6 +26,8 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255|unique:categories',
             'description' => 'nullable|string',
         ]);
+
+        $validated['slug'] = Str::slug($validated['name']);
 
         $category = Category::create($validated);
 
@@ -49,6 +52,8 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
             'description' => 'nullable|string',
         ]);
+
+        $validated['slug'] = Str::slug($validated['name']);
 
         $category->update($validated);
 

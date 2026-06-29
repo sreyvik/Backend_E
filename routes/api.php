@@ -61,31 +61,4 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/reviews/{review}', [ReviewController::class, 'destroy']);
 });
 
-// Admin API routes (protected + admin)
-Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function () {
-    Route::get('/dashboard', [App\Http\Controllers\Api\Admin\DashboardController::class, 'index']);
 
-    // Products
-    Route::get('/products', [App\Http\Controllers\Api\Admin\ProductController::class, 'index']);
-    Route::post('/products', [App\Http\Controllers\Api\Admin\ProductController::class, 'store']);
-    Route::get('/products/{product}', [App\Http\Controllers\Api\Admin\ProductController::class, 'show']);
-    Route::put('/products/{product}', [App\Http\Controllers\Api\Admin\ProductController::class, 'update']);
-    Route::delete('/products/{product}', [App\Http\Controllers\Api\Admin\ProductController::class, 'destroy']);
-
-    // Categories
-    Route::get('/categories', [App\Http\Controllers\Api\Admin\CategoryController::class, 'index']);
-    Route::post('/categories', [App\Http\Controllers\Api\Admin\CategoryController::class, 'store']);
-    Route::get('/categories/{category}', [App\Http\Controllers\Api\Admin\CategoryController::class, 'show']);
-    Route::put('/categories/{category}', [App\Http\Controllers\Api\Admin\CategoryController::class, 'update']);
-    Route::delete('/categories/{category}', [App\Http\Controllers\Api\Admin\CategoryController::class, 'destroy']);
-
-    // Orders
-    Route::get('/orders', [App\Http\Controllers\Api\Admin\OrderController::class, 'index']);
-    Route::get('/orders/{order}', [App\Http\Controllers\Api\Admin\OrderController::class, 'show']);
-    Route::patch('/orders/{order}/status', [App\Http\Controllers\Api\Admin\OrderController::class, 'updateStatus']);
-
-    // Users
-    Route::get('/users', [App\Http\Controllers\Api\Admin\UserController::class, 'index']);
-    Route::get('/users/{user}', [App\Http\Controllers\Api\Admin\UserController::class, 'show']);
-    Route::delete('/users/{user}', [App\Http\Controllers\Api\Admin\UserController::class, 'destroy']);
-});
